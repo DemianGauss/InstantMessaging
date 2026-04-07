@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Future Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="retro-background">
+        <div class="y2k-grid">
+            <div class="grid-dots"></div>
+            <div class="scanner-lines">
+                <div class="scan-line scan-1"></div>
+                <div class="scan-line scan-2"></div>
+                <div class="scan-line scan-3"></div>
+            </div>
+        </div>
+        <div class="floating-orbs">
+            <div class="retro-orb orb-1"></div>
+            <div class="retro-orb orb-2"></div>
+            <div class="retro-orb orb-3"></div>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="future-card">
+            <div class="chrome-header">
+                <div class="retro-logo">
+                    <div class="logo-chrome">
+                        <div class="chrome-inner">
+                            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                <circle cx="18" cy="18" r="16" stroke="url(#retroGradient)" stroke-width="2"/>
+                                <circle cx="18" cy="18" r="10" fill="url(#chromeGradient)"/>
+                                <circle cx="18" cy="18" r="6" fill="url(#centerGradient)"/>
+                                <defs>
+                                    <linearGradient id="retroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ff00ff"/>
+                                        <stop offset="50%" style="stop-color:#00ffff"/>
+                                        <stop offset="100%" style="stop-color:#ffff00"/>
+                                    </linearGradient>
+                                    <radialGradient id="chromeGradient">
+                                        <stop offset="0%" style="stop-color:#e6e6fa"/>
+                                        <stop offset="100%" style="stop-color:#c0c0ff"/>
+                                    </radialGradient>
+                                    <radialGradient id="centerGradient">
+                                        <stop offset="0%" style="stop-color:#ffffff"/>
+                                        <stop offset="100%" style="stop-color:#f0f0ff"/>
+                                    </radialGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="chrome-glow"></div>
+                    </div>
+                </div>
+                <h1 class="y2k-title">
+                    <span class="title-chrome">WECHAT</span>
+                    <span class="title-neon">2</span>
+                </h1>
+                <p class="retro-subtitle">未来的微信</p>
+            </div>
+            
+            <form class="future-form" id="loginForm" novalidate>
+                <div class="retro-field">
+                    <div class="field-chrome">
+                        <div class="chrome-border"></div>
+                        <input type="username" id="username" name="username" required autocomplete="username">
+                        <label for="email">username</label>
+                        <div class="field-hologram"></div>
+                    </div>
+                    <span class="retro-error" id="usernameerror"></span>
+                </div>
+
+                <div class="retro-field">
+                    <div class="field-chrome">
+                        <div class="chrome-border"></div>
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                        <label for="password">Access Code</label>
+                        <button type="button" class="retro-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <div class="toggle-chrome">
+                                <svg class="eye-future" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M10 3C6 3 2.5 6.5 1 10c1.5 3.5 5 7 9 7s7.5-3.5 9-7c-1.5-3.5-5-7-9-7z" stroke="url(#eyeGradient)" stroke-width="1.5" fill="none"/>
+                                    <circle cx="10" cy="10" r="3" stroke="url(#eyeGradient)" stroke-width="1.5" fill="none"/>
+                                    <defs>
+                                        <linearGradient id="eyeGradient">
+                                            <stop offset="0%" style="stop-color:#00ffff"/>
+                                            <stop offset="100%" style="stop-color:#ff00ff"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <svg class="eye-hidden" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M3 3l14 14M8.5 8.5a3 3 0 004 4m2.5-2.5C15 10 12.5 7 10 7c-.5 0-1 .1-1.5.3M10 13c-2.5 0-4.5-2-5-3 .3-.6.7-1.2 1.2-1.7" stroke="url(#eyeHiddenGradient)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <defs>
+                                        <linearGradient id="eyeHiddenGradient">
+                                            <stop offset="0%" style="stop-color:#ff00ff"/>
+                                            <stop offset="100%" style="stop-color:#ffff00"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="field-hologram"></div>
+                    </div>
+                    <span class="retro-error" id="passwordError"></span>
+                </div>
+
+                
+
+                <button type="submit" class="retro-button">
+                    <div class="button-chrome"></div>
+                    <span class="button-text">ENTER THE FUTURE</span>
+                    <div class="button-loader">
+                        <div class="y2k-spinner">
+                            <div class="spinner-ring ring-1"></div>
+                            <div class="spinner-ring ring-2"></div>
+                            <div class="spinner-ring ring-3"></div>
+                        </div>
+                    </div>
+                    <div class="button-hologram"></div>
+                </button>
+            </form>
+
+           
+
+            <div class="future-signup">
+                <span class="signup-text">New to the WECHAT?</span>
+                <a href="#" class="future-link signup-link">REGISTER</a>
+            </div>
+
+            <div class="retro-success" id="successMessage">
+                <div class="success-portal">
+                    <div class="portal-rings">
+                        <div class="portal-ring ring-1"></div>
+                        <div class="portal-ring ring-2"></div>
+                        <div class="portal-ring ring-3"></div>
+                        <div class="portal-ring ring-4"></div>
+                    </div>
+                    <div class="success-core">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M10 16l6 6 12-12" stroke="url(#successGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs>
+                                <linearGradient id="successGradient">
+                                    <stop offset="0%" style="stop-color:#00ffff"/>
+                                    <stop offset="50%" style="stop-color:#ff00ff"/>
+                                    <stop offset="100%" style="stop-color:#ffff00"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="success-title">WELCOME TO THE WECHAT2！</h3>
+                <p class="success-desc">Initializing digital interface...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/form-utils.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
