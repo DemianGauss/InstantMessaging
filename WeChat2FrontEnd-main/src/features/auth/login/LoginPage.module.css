@@ -260,8 +260,8 @@
 }
 
 .field-chrome:focus-within {
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 12px rgba(100, 160, 255, 0.2);
+  border-color: rgba(120, 180, 255, 0.4);
 }
 
 .chrome-border {
@@ -275,7 +275,7 @@
   transition: opacity 0.3s ease;
 }
 
-.field-chrome:focus-within .chrome-border { opacity: 1; }
+.field-chrome:focus-within .chrome-border { opacity: 0.2; }
 
 @keyframes borderShift {
   0%, 100% { background-position: 0% 50%; }
@@ -317,9 +317,9 @@
 .retro-field input:not(:placeholder-shown) + label {
   top: 10px;
   font-size: 11px;
-  color: #00ffff;
+  color: #a8d4ff;
   transform: translateY(0);
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  text-shadow: 0 0 6px rgba(100, 160, 255, 0.4);
 }
 
 .field-hologram {
@@ -328,7 +328,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #ff00ff, #00ffff);
+  background: linear-gradient(90deg, rgba(150, 100, 255, 0.6), rgba(100, 180, 255, 0.6));
   transition: width 0.3s ease;
   z-index: 2;
 }
