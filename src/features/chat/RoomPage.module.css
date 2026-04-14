@@ -1,0 +1,354 @@
+.room {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    position: relative;
+    font-family: 'Arial Black', Arial, sans-serif;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+/* ── Header ───────────────────────────────────────── */
+
+.header {
+    position: relative;
+    padding: 18px 28px;
+    background: linear-gradient(180deg, rgba(16, 16, 40, 0.85), rgba(16, 16, 40, 0.55));
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+.headerMain {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #e6e6fa, #c0c0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.chip {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: linear-gradient(145deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.15));
+    border: 1px solid rgba(0, 255, 255, 0.45);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.25);
+}
+
+.headerEdge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff00ff, #00ffff, #ffff00, transparent);
+    background-size: 400% 100%;
+    animation: headerEdgeShift 6s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+@keyframes headerEdgeShift {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ── Messages ─────────────────────────────────────── */
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+}
+
+.messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(255, 0, 255, 0.4), rgba(0, 255, 255, 0.4));
+    border-radius: 8px;
+}
+
+.stateText {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: auto;
+    font-style: italic;
+}
+
+.messageRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 78%;
+}
+
+.messageRowOther {
+    align-self: flex-start;
+}
+
+.messageRowOwn {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+/* Bubble avatar (for incoming messages) */
+
+.bubbleAvatarWrap {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    margin-top: 20px;
+}
+
+.bubbleAvatarGlow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    animation: avatarSpin 6s linear infinite;
+    filter: blur(4px);
+    opacity: 0.55;
+}
+
+.bubbleAvatar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #1a1a3e, #2a1a4e);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+    z-index: 1;
+}
+
+@keyframes avatarSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.bubbleStack {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.messageRowOwn .bubbleStack {
+    align-items: flex-end;
+}
+
+.bubbleMeta {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bubbleSender {
+    color: #ffff00;
+    font-weight: 900;
+    text-shadow: 0 0 6px rgba(255, 255, 0, 0.4);
+}
+
+.messageRowOwn .bubbleSender {
+    color: #00ffff;
+    text-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+}
+
+.bubbleTime {
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 600;
+}
+
+.bubble {
+    position: relative;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.bubbleOther {
+    background: linear-gradient(145deg, rgba(16, 16, 40, 0.85), rgba(32, 16, 64, 0.75));
+    border: 1px solid rgba(0, 255, 255, 0.35);
+    color: #e6e6fa;
+    border-top-left-radius: 4px;
+}
+
+.bubbleOwn {
+    background: linear-gradient(145deg, rgba(255, 0, 255, 0.28), rgba(0, 255, 255, 0.18));
+    border: 1px solid rgba(255, 0, 255, 0.45);
+    color: #ffffff;
+    border-top-right-radius: 4px;
+    box-shadow: 0 6px 20px rgba(255, 0, 255, 0.25);
+}
+
+/* ── Composer ─────────────────────────────────────── */
+
+.composer {
+    flex-shrink: 0;
+    padding: 16px 24px 22px;
+    background: linear-gradient(0deg, rgba(16, 16, 40, 0.85), rgba(16, 16, 40, 0.55));
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.composerForm {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+}
+
+.composerField {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.composerField:focus-within {
+    border-color: rgba(120, 180, 255, 0.45);
+    box-shadow: 0 0 12px rgba(100, 160, 255, 0.25);
+}
+
+.textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-height: 140px;
+}
+
+.textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 11px;
+}
+
+.composerHologram {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 0, 255, 0.6), rgba(0, 255, 255, 0.6));
+    transition: width 0.3s ease;
+}
+
+.composerField:focus-within .composerHologram {
+    width: 100%;
+}
+
+.sendButton {
+    position: relative;
+    min-width: 96px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.sendButtonChrome {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    background-size: 400% 400%;
+    animation: sendButtonShift 3s ease-in-out infinite;
+    border-radius: 12px;
+}
+
+.sendButtonText {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.sendButton:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(255, 0, 255, 0.3);
+}
+
+.sendButton:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+@keyframes sendButtonShift {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
