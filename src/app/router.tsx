@@ -1,6 +1,7 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import { LoginPage } from "../features/auth/login/LoginPage.tsx";
 import { RegisterPage } from "../features/auth/register/RegisterPage.tsx";
+import { ChatLayout } from "../features/chat/ChatLayout";
 import { RoomPage } from "../features/chat/RoomPage";
 import { RoomsPage } from "../features/chat/RoomsPage";
 import { FriendPage } from "../features/friend/FriendPage";
@@ -22,12 +23,18 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: "/",
-        element: <RoomsPage />,
-      },
-      {
-        path: "/rooms/:roomId",
-        element: <RoomPage />,
+        // 聊天相关路由共享 ChatLayout（左侧房间列表 + 右侧聊天区域）
+        element: <ChatLayout />,
+        children: [
+          {
+            path: "/",
+            element: <RoomsPage />,
+          },
+          {
+            path: "/rooms/:roomId",
+            element: <RoomPage />,
+          },
+        ],
       },
       {
         path: "/contact",
