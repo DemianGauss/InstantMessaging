@@ -104,7 +104,7 @@ export function RoomsListPanel() {
         <button
           type="button"
           className={styles.addButton}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/rooms/new")}
           title="创建新群聊"
           aria-label="创建新群聊"
         >
@@ -120,7 +120,9 @@ export function RoomsListPanel() {
 
         {!roomsQuery.isLoading && filteredRooms.length === 0 && (
           <p className={styles.stateText}>
-            {rooms.length === 0 ? "暂无活跃房间" : "没有匹配的结果"}
+            {rooms.length === 0
+              ? "你还没有任何聊天，邀请好友并开始聊天吧！"
+              : "没有匹配的结果"}
           </p>
         )}
 

@@ -2,6 +2,7 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import { LoginPage } from "../features/auth/login/LoginPage.tsx";
 import { RegisterPage } from "../features/auth/register/RegisterPage.tsx";
 import { ChatLayout } from "../features/chat/ChatLayout";
+import { NewRoomPage } from "../features/chat/NewRoomPage";
 import { RoomPage } from "../features/chat/RoomPage";
 import { RoomsPage } from "../features/chat/RoomsPage";
 import { FriendPage } from "../features/friend/FriendPage";
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
           {
             path: "/",
             element: <RoomsPage />,
+          },
+          {
+            path: "/rooms/new",
+            element: <NewRoomPage />,
           },
           {
             path: "/rooms/:roomId",
