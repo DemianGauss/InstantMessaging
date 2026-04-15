@@ -43,7 +43,11 @@ function getSubtitle(room: ChatRoom): string {
   return `${count} 人群聊`;
 }
 
-export function RoomsListPanel() {
+interface Props {
+  onOpenNewRoom: () => void;
+}
+
+export function RoomsListPanel({ onOpenNewRoom }: Props) {
   const navigate = useNavigate();
   const { roomId } = useParams<{ roomId: string }>();
   const activeRoomId = roomId ? Number(roomId) : null;
@@ -104,7 +108,7 @@ export function RoomsListPanel() {
         <button
           type="button"
           className={styles.addButton}
-          onClick={() => navigate("/")}
+          onClick={onOpenNewRoom}
           title="创建新群聊"
           aria-label="创建新群聊"
         >
@@ -120,7 +124,9 @@ export function RoomsListPanel() {
 
         {!roomsQuery.isLoading && filteredRooms.length === 0 && (
           <p className={styles.stateText}>
-            {rooms.length === 0 ? "暂无活跃房间" : "没有匹配的结果"}
+            {rooms.length === 0
+              ? "你还没有任何聊天，邀请好友并开始聊天吧！"
+              : "没有匹配的结果"}
           </p>
         )}
 

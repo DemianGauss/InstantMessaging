@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { NewRoomModal } from "./components/NewRoomModal/NewRoomModal";
 import { RoomsListPanel } from "./components/RoomsListPanel/RoomsListPanel";
 import styles from "./ChatLayout.module.css";
 
 export function ChatLayout() {
+  const [showNewRoom, setShowNewRoom] = useState(false);
+
   return (
     <div className={styles.shell}>
       <div className={styles.background} aria-hidden>
@@ -19,11 +23,15 @@ export function ChatLayout() {
         </div>
       </div>
 
-      <RoomsListPanel />
+      <RoomsListPanel onOpenNewRoom={() => setShowNewRoom(true)} />
 
       <section className={styles.content}>
         <Outlet />
       </section>
+
+      {showNewRoom && (
+        <NewRoomModal onClose={() => setShowNewRoom(false)} />
+      )}
     </div>
   );
 }
