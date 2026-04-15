@@ -18,7 +18,8 @@ export const MainLayout: React.FC = () => {
         height: "100vh",
         width: "100vw",
         overflow: "hidden",
-        backgroundColor: "#fff",
+        background:
+          "linear-gradient(135deg, #0a0a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #e94560 100%)",
       }}
     >
       {/* 固定在左侧的微信侧边栏 */}

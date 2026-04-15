@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useFriendStore, type Friend } from "../store/useFriendStore";
+import styles from "./FriendList.module.css";
 
 type ContactsMode = "pinyin" | "label";
 
@@ -15,37 +16,27 @@ const FriendList: React.FC = () => {
     clearSearchResults,
   } = useFriendStore();
 
-  const [isNewFriendsOpen, setIsNewFriendsOpen] = useState(false); // "新的朋友"折叠面板状态
-  const [isContactsOpen, setIsContactsOpen] = useState(true); //"联系人"折叠面板状态
-  const [contactsMode, setContactsMode] = useState<ContactsMode>("pinyin"); // "联系人"展示方式：首字母拼音 | label
-  const [keyword, setKeyword] = useState(""); // 搜索框的文本
+  const [isNewFriendsOpen, setIsNewFriendsOpen] = useState(false);
+  const [isContactsOpen, setIsContactsOpen] = useState(true);
+  const [contactsMode, setContactsMode] = useState<ContactsMode>("pinyin");
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     fetchRequests();
   }, [fetchRequests]);
 
-  // 处理搜索输入
-  // 仅负责同步文字，不触发搜索
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setKeyword(value);
+    setKeyword(e.target.value);
   };
 
-  // 专门监听回车键，触发搜索
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // 按下的键为 "Enter"触发搜索
     if (e.key === "Enter") {
       const value = keyword.trim();
-      if (value) {
-        searchUsers(value);
-      } else {
-        // 搜索内容为空则清空
-        clearSearchResults();
-      }
+      if (value) searchUsers(value);
+      else clearSearchResults();
     }
   };
 
-  // 对好友申请列表排序，时间越新越靠前
   const sortedRequests = useMemo(() => {
     return [...requests].sort(
       (a, b) =>
@@ -58,9 +49,7 @@ const FriendList: React.FC = () => {
     friends.forEach((friend) => {
       let key = "";
       if (contactsMode === "pinyin") {
-        // 首字母拼音大写
         key = (friend.remark || friend.username).charAt(0).toUpperCase();
-        // 不是拼音，归到"#"组
         if (!/[A-Z]/.test(key)) key = "#";
       } else {
         key = friend.labelName || "未分组";
@@ -68,290 +57,157 @@ const FriendList: React.FC = () => {
       if (!groups[key]) groups[key] = [];
       groups[key].push(friend);
     });
-
     return Object.keys(groups)
       .sort()
-      .map((key) => ({
-        title: key,
-        list: groups[key],
-      }));
+      .map((key) => ({ title: key, list: groups[key] }));
   }, [friends, contactsMode]);
 
-  const headerStyle: React.CSSProperties = {
-    padding: "10px 15px",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    fontSize: "14px",
-    color: "#333",
-    userSelect: "none",
-  };
-
-  const arrowStyle = (isOpen: boolean) => ({
-    marginRight: "8px",
-    transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
-    transition: "transform 0.2s",
-    fontSize: "12px",
-  });
-
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      {/* 搜索框 */}
-      <div style={{ padding: "20px 15px 10px" }}>
-        <input
-          placeholder="搜索用户"
-          value={keyword}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          style={{
-            width: "100%",
-            borderRadius: "4px",
-            border: "1px solid #ddd",
-            padding: "6px 8px",
-            backgroundColor: "#f2f2f2",
-            outline: "none",
-          }}
-        />
+    <div className={styles.panel}>
+      {/* Search */}
+      <div className={styles.searchRow}>
+        <div className={styles.searchField}>
+          <span className={styles.searchIcon} aria-hidden>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.5"
+              strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </span>
+          <input
+            className={styles.searchInput}
+            placeholder="搜索用户"
+            value={keyword}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+          <span className={styles.searchHologram} aria-hidden />
+        </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: "auto" }}>
+      <div className={styles.scrollArea}>
         {keyword.trim() ? (
-          /* --- 搜索结果视图 --- */
-          <div>
-            <div
-              style={{ padding: "10px 15px", fontSize: "12px", color: "#999" }}
-            >
-              搜索到的用户
-            </div>
+          /* Search results */
+          <>
+            <p className={styles.stateText}>搜索结果</p>
             {searchResults.map((user) => (
               <div
                 key={user.userId}
+                className={`${styles.item} ${
+                  selectedId === user.userId ? styles.itemActive : ""
+                }`}
                 onClick={() => setSelectedId(user.userId)}
-                style={{
-                  padding: "10px 35px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  backgroundColor:
-                    selectedId === `search_${user.userId}`
-                      ? "#c5c5c5"
-                      : "transparent",
-                }}
               >
-                <img
-                  src={user.avatar}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: "4px",
-                    marginRight: 10,
-                  }}
-                  alt="avatar"
-                />
-                <span style={{ fontSize: "14px" }}>{user.username}</span>
-                <span
-                  style={{
-                    marginLeft: "auto",
-                    fontSize: "11px",
-                    color: "#1890ff",
-                  }}
-                >
-                  添加
-                </span>
+                <div className={styles.avatarWrap}>
+                  <span className={styles.avatarGlow} aria-hidden />
+                  <img src={user.avatar} className={styles.avatar} alt="avatar" />
+                </div>
+                <div className={styles.itemBody}>
+                  <span className={styles.itemName}>{user.username}</span>
+                </div>
+                <span className={styles.addTag}>添加</span>
               </div>
             ))}
             {searchResults.length === 0 && (
-              <div
-                style={{
-                  padding: "20px",
-                  textAlign: "center",
-                  color: "#999",
-                  fontSize: "13px",
-                }}
-              >
-                未找到相关用户
-              </div>
+              <p className={styles.stateText}>未找到相关用户</p>
             )}
-          </div>
+          </>
         ) : (
-          /* --- 常规列表视图 --- */
+          /* Normal list */
           <>
-            {/* 通讯录管理 */}
+            {/* Contact manager */}
             <div
+              className={`${styles.managerBtn} ${
+                selectedId === "contactManager" ? styles.managerBtnActive : ""
+              }`}
               onClick={() => setSelectedId("contactManager")}
-              style={{
-                ...headerStyle,
-                backgroundColor:
-                  selectedId === "contactManager" ? "#d1d1d1" : "transparent",
-                margin: "5px 10px",
-                borderRadius: "6px",
-                justifyContent: "center",
-                border: "1px solid #ccc",
-              }}
             >
-              <span style={{ marginRight: "8px" }}>👤</span> 通讯录管理
+              <span>👤</span> 通讯录管理
             </div>
 
-            {/* 好友申请 */}
+            <div className={styles.sectionDivider} />
+
+            {/* Friend requests */}
             <div
+              className={styles.sectionHeader}
               onClick={() => setIsNewFriendsOpen(!isNewFriendsOpen)}
-              style={headerStyle}
             >
-              <span style={arrowStyle(isNewFriendsOpen)}>▶</span>
+              <span className={`${styles.arrow} ${isNewFriendsOpen ? styles.arrowOpen : ""}`}>▶</span>
               <span style={{ flex: 1 }}>好友申请</span>
               {requests.length > 0 && (
-                <span
-                  style={{
-                    marginLeft: "auto",
-                    backgroundColor: "#ff4d4f",
-                    color: "#fff",
-                    borderRadius: "10px",
-                    padding: "0 6px",
-                    fontSize: "11px",
-                  }}
-                >
-                  {requests.length}
-                </span>
+                <span className={styles.badge}>{requests.length}</span>
               )}
             </div>
+
             {isNewFriendsOpen && (
-              <div style={{ borderBottom: "1px solid #eee" }}>
+              <>
                 {sortedRequests.map((req) => (
                   <div
                     key={req.requestId}
+                    className={`${styles.item} ${
+                      selectedId === req.sender.userId ? styles.itemActive : ""
+                    }`}
                     onClick={() => setSelectedId(req.sender.userId)}
-                    style={{
-                      padding: "10px 35px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      backgroundColor:
-                        selectedId === `request_${req.requestId}`
-                          ? "#c5c5c5"
-                          : "transparent",
-                    }}
                   >
-                    <img
-                      src={req.sender.avatar}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: "4px",
-                        marginRight: 10,
-                      }}
-                      alt="avatar"
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <span style={{ fontSize: "14px" }}>
-                        {req.sender.username}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "12px",
-                          color: "#999",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {req.applyMsg}
-                      </span>
+                    <div className={styles.avatarWrap}>
+                      <span className={styles.avatarGlow} aria-hidden />
+                      <img src={req.sender.avatar} className={styles.avatar} alt="avatar" />
+                    </div>
+                    <div className={styles.itemBody}>
+                      <span className={styles.itemName}>{req.sender.username}</span>
+                      <span className={styles.itemSub}>{req.applyMsg}</span>
                     </div>
                   </div>
                 ))}
-              </div>
+                <div className={styles.sectionDivider} />
+              </>
             )}
 
-            {/* 联系人 */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                paddingRight: "10px",
-              }}
-            >
+            {/* Contacts */}
+            <div className={styles.sectionHeaderRow}>
               <div
+                className={styles.sectionHeader}
+                style={{ flex: 1 }}
                 onClick={() => setIsContactsOpen(!isContactsOpen)}
-                style={{ ...headerStyle, flex: 1 }}
               >
-                <span style={arrowStyle(isContactsOpen)}>▶</span> 联系人
-                <span
-                  style={{
-                    color: "#999",
-                    marginLeft: "10px",
-                    fontSize: "12px",
-                  }}
-                >
-                  {friends.length}
-                </span>
+                <span className={`${styles.arrow} ${isContactsOpen ? styles.arrowOpen : ""}`}>▶</span>
+                联系人
+                <span className={styles.friendCount}>{friends.length}</span>
               </div>
               {isContactsOpen && (
                 <select
+                  className={styles.modeSelect}
                   value={contactsMode}
-                  onChange={(e) =>
-                    setContactsMode(e.target.value as ContactsMode)
-                  }
-                  style={{
-                    fontSize: "10px",
-                    border: "none",
-                    background: "transparent",
-                    color: "#888",
-                    cursor: "pointer",
-                  }}
+                  onChange={(e) => setContactsMode(e.target.value as ContactsMode)}
                 >
                   <option value="pinyin">拼音</option>
                   <option value="label">标签</option>
                 </select>
               )}
             </div>
+
             {isContactsOpen &&
               groupedFriends.map((group) => (
                 <div key={group.title}>
-                  <div
-                    style={{
-                      padding: "2px 35px",
-                      fontSize: "12px",
-                      color: "#999",
-                      backgroundColor: "#eaeaea",
-                    }}
-                  >
-                    {group.title}
-                  </div>
+                  <div className={styles.groupLabel}>{group.title}</div>
                   {group.list.map((friend) => (
                     <div
                       key={friend.userId}
+                      className={`${styles.item} ${
+                        selectedId === `friend_${friend.userId}` ? styles.itemActive : ""
+                      }`}
                       onClick={() => setSelectedId(friend.userId)}
-                      style={{
-                        padding: "10px 35px",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        backgroundColor:
-                          selectedId === `friend_${friend.userId}`
-                            ? "#c5c5c5"
-                            : "transparent",
-                      }}
                     >
-                      <img
-                        src={friend.avatar}
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: "4px",
-                          marginRight: 10,
-                        }}
-                        alt="avatar"
-                      />
-                      <span style={{ fontSize: "14px" }}>
-                        {friend.remark || friend.username}
-                      </span>
+                      <div className={styles.avatarWrap}>
+                        <span className={styles.avatarGlow} aria-hidden />
+                        <img src={friend.avatar} className={styles.avatar} alt="avatar" />
+                      </div>
+                      <div className={styles.itemBody}>
+                        <span className={styles.itemName}>
+                          {friend.remark || friend.username}
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -1,0 +1,255 @@
+.page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    font-family: 'Arial Black', Arial, sans-serif;
+    color: #ffffff;
+}
+
+.page::-webkit-scrollbar { width: 6px; }
+.page::-webkit-scrollbar-track { background: transparent; }
+.page::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(255, 0, 255, 0.4), rgba(0, 255, 255, 0.4));
+    border-radius: 6px;
+}
+
+/* ── Error bar ───────────────────────────────────── */
+
+.errorBar {
+    background: linear-gradient(90deg, rgba(255, 77, 166, 0.3), rgba(255, 0, 0, 0.2));
+    border-bottom: 1px solid rgba(255, 77, 166, 0.5);
+    color: #ff9ab0;
+    padding: 10px 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* ── Profile section ─────────────────────────────── */
+
+.profileSection {
+    position: relative;
+    padding: 48px 32px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+.profileSection::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #ff00ff, #00ffff, transparent);
+    opacity: 0.5;
+}
+
+.profileInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.profileName {
+    font-size: 22px;
+    font-weight: 900;
+    margin: 0 0 8px;
+    background: linear-gradient(45deg, #e6e6fa, #c0c0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.5px;
+}
+
+.profileMeta {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 4px 0;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.profileMeta span {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Avatar with neon ring */
+.avatarWrap {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+}
+
+.avatarGlow {
+    position: absolute;
+    inset: -3px;
+    border-radius: 12px;
+    background: conic-gradient(from 0deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    animation: avatarSpin 6s linear infinite;
+    filter: blur(6px);
+    opacity: 0.65;
+}
+
+@keyframes avatarSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.avatar {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #1a1a3e;
+    z-index: 1;
+}
+
+/* ── Info section (remarks label etc) ───────────── */
+
+.infoSection {
+    padding: 20px 32px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.infoLabel {
+    font-size: 10px;
+    color: rgba(0, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.infoValue {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+/* ── Verify message ──────────────────────────────── */
+
+.verifySection {
+    padding: 20px 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.verifyLabel {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.verifyMsg {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* ── Action buttons ──────────────────────────────── */
+
+.actions {
+    margin-top: auto;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.actionBtn {
+    position: relative;
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    overflow: hidden;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.actionBtnChrome {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    background-size: 400% 400%;
+    animation: btnShift 3s ease-in-out infinite;
+    border-radius: 12px;
+}
+
+@keyframes btnShift {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+}
+
+.actionBtnText {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.actionBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(255, 0, 255, 0.3);
+}
+
+/* Ghost variant for secondary actions */
+.actionBtnGhost {
+    background: transparent;
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    color: #00ffff;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    min-height: 44px;
+    border-radius: 10px;
+}
+
+.actionBtnGhost .actionBtnChrome {
+    opacity: 0;
+}
+
+.actionBtnGhost:hover {
+    border-color: rgba(0, 255, 255, 0.8);
+    background: rgba(0, 255, 255, 0.08);
+    box-shadow: 0 0 16px rgba(0, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+/* ── Empty / loading state ───────────────────────── */
+
+.empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
