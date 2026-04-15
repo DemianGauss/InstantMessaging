@@ -43,7 +43,11 @@ function getSubtitle(room: ChatRoom): string {
   return `${count} 人群聊`;
 }
 
-export function RoomsListPanel() {
+interface Props {
+  onOpenNewRoom: () => void;
+}
+
+export function RoomsListPanel({ onOpenNewRoom }: Props) {
   const navigate = useNavigate();
   const { roomId } = useParams<{ roomId: string }>();
   const activeRoomId = roomId ? Number(roomId) : null;
@@ -104,7 +108,7 @@ export function RoomsListPanel() {
         <button
           type="button"
           className={styles.addButton}
-          onClick={() => navigate("/rooms/new")}
+          onClick={onOpenNewRoom}
           title="创建新群聊"
           aria-label="创建新群聊"
         >
