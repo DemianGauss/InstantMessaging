@@ -3,6 +3,7 @@ import { useFriendStore } from "./store/useFriendStore";
 import FriendList from "./components/FriendList";
 import { UserDetail } from "./components/UserDetail";
 import { ContactManager } from "./components/ContactManager";
+import styles from "./FriendPage.module.css";
 
 export const FriendPage: React.FC = () => {
   const { fetchFriends, selectedId } = useFriendStore();
@@ -11,48 +12,38 @@ export const FriendPage: React.FC = () => {
     fetchFriends();
   }, [fetchFriends]);
 
-  // 右侧面板渲染结果
   const renderRightContent = () => {
-    // 展示用户详细信息
     if (typeof selectedId === "number") return <UserDetail />;
-
-    // 通讯录管理页面
     if (selectedId === "contactManager") return <ContactManager />;
-
-    // 没有选中任何东西，展示Logo页面
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          color: "#ccc",
-        }}
-      >
-        <img
-          src="/favicon.svg"
-          alt="logo"
-          style={{ opacity: 0.2, width: 100 }}
-        />
+      <div className={styles.emptyState}>
+        <img src="/favicon.svg" alt="logo" className={styles.emptyLogo} />
       </div>
     );
   };
 
   return (
-    <div
-      style={{ display: "flex", height: "100vh", backgroundColor: "#f5f5f5" }}
-    >
-      <div
-        style={{
-          width: 280,
-          borderRight: "1px solid #e0e0e0",
-          backgroundColor: "#eee",
-        }}
-      >
+    <div className={styles.shell}>
+      {/* Ambient background */}
+      <div className={styles.background} aria-hidden>
+        <div className={styles.grid} />
+        <div className={styles.scanLines}>
+          <div className={`${styles.scanLine} ${styles.scan1}`} />
+          <div className={`${styles.scanLine} ${styles.scan2}`} />
+          <div className={`${styles.scanLine} ${styles.scan3}`} />
+        </div>
+        <div className={styles.orbs}>
+          <div className={`${styles.orb} ${styles.orb1}`} />
+          <div className={`${styles.orb} ${styles.orb2}`} />
+          <div className={`${styles.orb} ${styles.orb3}`} />
+        </div>
+      </div>
+
+      <div className={styles.leftPanel}>
         <FriendList />
       </div>
-      <div style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+
+      <div className={styles.rightPanel}>
         {renderRightContent()}
       </div>
     </div>

@@ -1,68 +1,41 @@
 import React from "react";
 import { useFriendStore } from "../store/useFriendStore";
+import styles from "./ContactManager.module.css";
 
 export const ContactManager: React.FC = () => {
   const { friends } = useFriendStore();
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        height: "100%",
-        overflowY: "auto",
-        backgroundColor: "white",
-      }}
-    >
-      <div
-        style={{ marginBottom: "20px", fontSize: "18px", fontWeight: "bold" }}
-      >
-        通讯录管理
-      </div>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr
-            style={{
-              borderBottom: "1px solid #eee",
-              textAlign: "left",
-              color: "#999",
-            }}
-          >
-            <th style={{ padding: "10px" }}>
-              <input type="checkbox" />
-            </th>
+    <div className={styles.page}>
+      <h2 className={styles.title}>通讯录管理</h2>
+      <table className={styles.table}>
+        <thead className={styles.thead}>
+          <tr>
+            <th><input type="checkbox" className={styles.checkbox} /></th>
             <th>昵称</th>
             <th>备注</th>
             <th>标签</th>
             <th>朋友权限</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={styles.tbody}>
           {friends.map((f) => (
-            <tr key={f.userId} style={{ borderBottom: "1px solid #f9f9f9" }}>
-              <td style={{ padding: "10px" }}>
-                <input type="checkbox" />
+            <tr key={f.userId}>
+              <td>
+                <input type="checkbox" className={styles.checkbox} />
               </td>
-              <td
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "10px 0",
-                }}
-              >
-                <img
-                  src={f.avatar}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    marginRight: 10,
-                    borderRadius: "4px",
-                  }}
-                />
-                {f.username}
+              <td>
+                <div className={styles.nameCell}>
+                  <div className={styles.avatarWrap}>
+                    <span className={styles.avatarGlow} aria-hidden />
+                    <img src={f.avatar} className={styles.avatar} alt="avatar" />
+                  </div>
+                  {f.username}
+                </div>
               </td>
-              <td>{f.remark || "-"}</td>
-              <td>{f.labelName}</td>
-              <td>聊天、朋友圈、微信运动等</td>
+              <td>{f.remark || <span className={styles.dimText}>—</span>}</td>
+              <td>{f.labelName || <span className={styles.dimText}>—</span>}</td>
+              <td className={styles.dimText}>聊天、朋友圈、微信运动等</td>
             </tr>
           ))}
         </tbody>

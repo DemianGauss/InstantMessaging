@@ -1,0 +1,122 @@
+.page {
+    padding: 32px;
+    height: 100%;
+    overflow-y: auto;
+    font-family: 'Arial Black', Arial, sans-serif;
+    color: #ffffff;
+}
+
+.page::-webkit-scrollbar { width: 6px; }
+.page::-webkit-scrollbar-track { background: transparent; }
+.page::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(255, 0, 255, 0.4), rgba(0, 255, 255, 0.4));
+    border-radius: 6px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #e6e6fa, #c0c0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.thead tr {
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.thead th {
+    padding: 10px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(0, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: left;
+}
+
+.thead th:first-child {
+    width: 40px;
+    text-align: center;
+}
+
+.tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.15s ease;
+}
+
+.tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.tbody td {
+    padding: 12px 14px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.tbody td:first-child {
+    text-align: center;
+}
+
+.nameCell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatarWrap {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.avatarGlow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 6px;
+    background: conic-gradient(from 0deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    animation: avatarSpin 6s linear infinite;
+    filter: blur(3px);
+    opacity: 0.45;
+}
+
+@keyframes avatarSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.avatar {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #1a1a3e;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 1;
+}
+
+.checkbox {
+    accent-color: #ff00ff;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.dimText {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 12px;
+}
