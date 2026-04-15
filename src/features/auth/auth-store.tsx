@@ -19,6 +19,7 @@ interface AuthState {
   login: (token: string, user: User) => Promise<void>;
   logout: () => void;
   deleteAccount: () => Promise<void>;
+  updateProfile: (fields: Partial<Pick<User, "username" | "avatar">>) => Promise<void>;
 }
 
 // 用户认证状态管理
@@ -45,6 +46,14 @@ export const useAuthStore = create<AuthState>()(
       // 登出
       logout: () => {
         set({ user: null, token: null, isAuthenticated: false });
+      },
+
+      // 更新个人资料（昵称 / 头像）
+      updateProfile: async (fields) => {
+        await https.patch("/api/user/profile", fields);
+        set((state) => ({
+          user: state.user ? { ...state.user, ...fields } : state.user,
+        }));
       },
 
       // 注销
