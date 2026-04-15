@@ -5,6 +5,7 @@ import { ChatLayout } from "../features/chat/ChatLayout";
 import { RoomPage } from "../features/chat/RoomPage";
 import { RoomsPage } from "../features/chat/RoomsPage";
 import { FriendPage } from "../features/friend/FriendPage";
+import { SettingsPage } from "../features/settings/SettingsPage";
 import { MainLayout } from "../layout/MainLayout"; // 确保导入路径正确
 
 export const router = createBrowserRouter([
@@ -42,7 +43,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/settings",
-        element: <div>设置界面（待开发）</div>,
+        element: <SettingsPage />,
       },
     ],
   },
