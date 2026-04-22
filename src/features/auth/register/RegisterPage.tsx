@@ -90,7 +90,7 @@ export function RegisterPage() {
 
     setSubmitting(true);
     try {
-      await https.post("/api/auth/register/", { username, password });
+      await https.post("/api/auth/register/", { account_id: username, password });
       setSuccess(true);
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
