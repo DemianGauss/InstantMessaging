@@ -126,11 +126,19 @@ export function SettingsPage() {
       <div className={styles.card}>
         <p className={styles.cardTitle}>当前资料</p>
         <div className={styles.profileRow}>
-          <div className={styles.avatarWrap}>
+          <button
+            type="button"
+            className={styles.avatarWrap}
+            onClick={handlePickFile}
+            disabled={avatarSaving}
+            title="点击更换头像"
+          >
             <span className={styles.avatarGlow} aria-hidden />
             <img src={avatarSrc} alt="avatar" className={styles.avatar} />
-            {avatarSaving && <div className={styles.avatarOverlay}>…</div>}
-          </div>
+            <div className={styles.avatarOverlay}>
+              {avatarSaving ? "…" : "更换"}
+            </div>
+          </button>
           <div className={styles.profileMeta}>
             <p className={styles.profileName}>{user?.username ?? "—"}</p>
             <p className={styles.profileEmail}>{user?.email ?? "未设置邮箱"}</p>
@@ -144,14 +152,6 @@ export function SettingsPage() {
           className={styles.hiddenInput}
           onChange={handleFileChange}
         />
-        <button
-          type="button"
-          className={styles.changePicBtn}
-          onClick={handlePickFile}
-          disabled={avatarSaving}
-        >
-          {avatarSaving ? "上传中…" : "更换头像"}
-        </button>
       </div>
 
       {/* ── Change username card ── */}
