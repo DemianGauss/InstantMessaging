@@ -308,7 +308,7 @@
     border-radius: 12px;
     cursor: pointer;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 900;
     color: #ffffff;
     text-transform: uppercase;
@@ -321,7 +321,7 @@
 .sendButtonChrome {
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    background: linear-gradient(45deg, #dd00dd, #00dddd, #dddd00, #dd00dd);
     background-size: 400% 400%;
     animation: sendButtonShift 3s ease-in-out infinite;
     border-radius: 12px;
@@ -335,7 +335,7 @@
 
 .sendButton:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba(255, 0, 255, 0.3);
+    box-shadow: 0 10px 24px rgba(221, 0, 221, 0.25);
 }
 
 .sendButton:disabled {
