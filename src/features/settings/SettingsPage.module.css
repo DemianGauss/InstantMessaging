@@ -319,7 +319,7 @@
     padding: 0;
     cursor: pointer;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 900;
     color: #ffffff;
     text-transform: uppercase;
@@ -337,7 +337,7 @@
 .btnChrome {
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    background: linear-gradient(45deg, #dd00dd, #00dddd, #dddd00, #dd00dd);
     background-size: 400% 400%;
     animation: chromeShift 3s ease-in-out infinite;
     border-radius: 12px;
@@ -351,7 +351,7 @@
 
 .btn:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(255, 0, 255, 0.3);
+    box-shadow: 0 12px 28px rgba(221, 0, 221, 0.25);
 }
 
 .btn:disabled {

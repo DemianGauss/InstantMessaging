@@ -212,7 +212,7 @@
     background: transparent;
     color: #ffffff;
     font-family: inherit;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 900;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -230,7 +230,7 @@
 .confirmChrome {
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    background: linear-gradient(45deg, #dd00dd, #00dddd, #dddd00, #dd00dd);
     background-size: 400% 400%;
     animation: chromeShift 3s ease-in-out infinite;
     border-radius: 10px;
