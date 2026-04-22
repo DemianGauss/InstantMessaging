@@ -80,11 +80,18 @@ export function LoginPage() {
     setSubmitting(true);
     try {
       const response = await https.post("/api/auth/login/", {
-        username: username.trim(),
+        account_id: username.trim(),
         password,
       });
       const { access, user_info } = response.data;
-      await login(access, user_info);
+      await login(access, {
+        id: user_info.userId ?? 0,
+        account_id: user_info.account_id,
+        username: user_info.nickname || user_info.account_id,
+        avatar: user_info.avatar,
+        email: user_info.email,
+        phone: user_info.phone,
+      });
       setSuccess(true);
       setTimeout(() => navigate("/"), 2000);
     } catch (err) {

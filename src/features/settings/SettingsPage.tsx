@@ -9,7 +9,7 @@ type AvailStatus = "idle" | "checking" | "ok" | "taken" | "error";
 
 export function SettingsPage() {
   const navigate = useNavigate();
-  const { user, logout, updateProfile } = useAuthStore();
+  const { user, logout, updateNickname, updateAvatar } = useAuthStore();
 
   // ── Avatar / file upload ─────────────────────────────────
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -17,7 +17,7 @@ export function SettingsPage() {
   const [avatarSaving, setAvatarSaving] = useState(false);
 
   function handlePickFile() {
-    fileInputRef.current?.click();
+    if (fileInputRef.current) fileInputRef.current.click();
   }
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -39,10 +39,10 @@ export function SettingsPage() {
   async function applyAvatar(dataUrl: string, cleanup?: () => void) {
     setAvatarSaving(true);
     try {
-      await updateProfile({ avatar: dataUrl });
+      await updateAvatar(dataUrl);
     } finally {
       setAvatarSaving(false);
-      cleanup?.();
+      if (cleanup) cleanup();
     }
   }
 
@@ -97,7 +97,7 @@ export function SettingsPage() {
     setUsernameSaveStatus("saving");
     setUsernameError("");
     try {
-      await updateProfile({ username: trimmed });
+      await updateNickname(trimmed);
       setUsernameSaveStatus("ok");
       setNewUsername("");
       setRepeatUsername("");
