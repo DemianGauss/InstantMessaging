@@ -21,7 +21,7 @@
 
 .pageTitle {
     width: 100%;
-    max-width: 560px;
+    max-width: 700px;
     margin: 0 0 32px;
     font-size: 13px;
     font-weight: 900;
@@ -34,7 +34,7 @@
 
 .card {
     width: 100%;
-    max-width: 560px;
+    max-width: 700px;
     position: relative;
     padding: 32px 36px;
     border-radius: 20px;
@@ -106,6 +106,11 @@
     width: 108px;
     height: 108px;
     flex-shrink: 0;
+    /* reset button defaults */
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 .avatarGlow {
@@ -142,9 +147,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     color: #00ffff;
     z-index: 2;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.avatarWrap:hover .avatarOverlay,
+.avatarWrap:disabled .avatarOverlay {
+    opacity: 1;
+}
+
+.avatarWrap:disabled {
+    cursor: not-allowed;
 }
 
 .profileMeta {
@@ -171,38 +190,10 @@
     letter-spacing: 0.5px;
 }
 
-/* ── Change picture button ───────────────────────── */
+/* ── Hidden file input ───────────────────────────── */
 
 .hiddenInput {
     display: none;
-}
-
-.changePicBtn {
-    display: inline-block;
-    padding: 9px 20px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 255, 255, 0.35);
-    background: rgba(0, 255, 255, 0.06);
-    color: rgba(0, 255, 255, 0.85);
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.changePicBtn:hover:not(:disabled) {
-    border-color: rgba(0, 255, 255, 0.65);
-    background: rgba(0, 255, 255, 0.12);
-    color: #00ffff;
-    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
-}
-
-.changePicBtn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
 }
 
 /* ── Form fields ─────────────────────────────────── */
