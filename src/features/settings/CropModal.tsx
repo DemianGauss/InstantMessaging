@@ -113,7 +113,8 @@ export function CropModal({ src, onConfirm, onCancel }: Props) {
     const out = document.createElement("canvas");
     out.width = FRAME;
     out.height = FRAME;
-    out.getContext("2d")?.drawImage(canvas, 0, 0);
+    const outCtx = out.getContext("2d");
+    if (outCtx) outCtx.drawImage(canvas, 0, 0);
     onConfirm(out.toDataURL("image/jpeg", 0.85));
   }
 

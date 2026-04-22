@@ -17,7 +17,7 @@ export function SettingsPage() {
   const [avatarSaving, setAvatarSaving] = useState(false);
 
   function handlePickFile() {
-    fileInputRef.current?.click();
+    if (fileInputRef.current) fileInputRef.current.click();
   }
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -42,7 +42,7 @@ export function SettingsPage() {
       await updateProfile({ avatar: dataUrl });
     } finally {
       setAvatarSaving(false);
-      cleanup?.();
+      if (cleanup) cleanup();
     }
   }
 
